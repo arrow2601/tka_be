@@ -10,7 +10,7 @@ import {
   ManyToMany,
 } from 'typeorm';
 import { User } from '../auth/auth.entity'; // relasi ke user
-import { Mapel } from './mapel.entity'; // jika kamu punya entity Mapel
+import { Mapel } from '../mapel/mapel.entity'; // jika kamu punya entity Mapel
 import { Ujian } from '../ujian/ujian.entity';
 
 @Entity('bank_soal')

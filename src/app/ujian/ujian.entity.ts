@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../auth/auth.entity';
-import { Mapel } from '../bank-soal/mapel.entity';
+import { Mapel } from '../mapel/mapel.entity';
 import { BankSoal } from '../bank-soal/bank-soal.entity';
 
 @Entity('ujian')
@@ -28,7 +28,16 @@ export class Ujian {
   jumlah_soal: number;
 
   @Column({ nullable: true })
+  kategori: string;
+
+  @Column({ nullable: true })
+  is_open: boolean;
+
+  @Column({ nullable: true })
   kode: string;
+
+  @Column({ nullable: true })
+  user_id: number;
   @Column({ nullable: true })
   user_name: string;
   @Column({ nullable: true })
@@ -53,10 +62,9 @@ export class Ujian {
   //   mapel: Mapel;
 
   // relasi ke user (pembuat ujian)
-  @ManyToOne(() => User, (user) => user.ujians, { onDelete: 'CASCADE' })
-  user: User;
+ 
 
-  @Column({type: "text", nullable : true})
+  @Column({ type: 'text', nullable: true })
   soal: string;
 
   @CreateDateColumn()

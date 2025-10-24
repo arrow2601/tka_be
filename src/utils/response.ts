@@ -1,6 +1,6 @@
 export interface ResponseSuccess {
+  message?: string;
   status: string;
-  msg: string;
   data?: [] | {};
 }
 
@@ -16,10 +16,10 @@ export interface ResponsePagination {
 }
 
 class BaseResponse {
-  _success(msg: string, data?: any): ResponseSuccess {
+  _success(message?: string, data?: any): ResponseSuccess {
     return {
       status: 'Success',
-      msg: msg,
+      message: message,
       data: data || {},
     };
   }

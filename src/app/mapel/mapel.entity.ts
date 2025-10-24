@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
   BaseEntity,
 } from 'typeorm';
-import { BankSoal } from './bank-soal.entity';
+import { BankSoal } from '../bank-soal/bank-soal.entity';
 import { Ujian } from '../ujian/ujian.entity';
 
 @Entity('mapel')

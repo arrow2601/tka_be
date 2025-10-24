@@ -1,10 +1,11 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, Like, Repository } from 'typeorm';
 import { BankSoal } from './bank-soal.entity';
-import { Mapel } from './mapel.entity';
+import { Mapel } from '../mapel/mapel.entity';
 import { User } from '../auth/auth.entity';
 import { UjianService } from '../ujian/ujian.service';
+import { REQUEST } from '@nestjs/core';
 
 @Injectable()
 export class BankSoalService {
@@ -13,6 +14,7 @@ export class BankSoalService {
     private readonly bankSoalRepo: Repository<BankSoal>,
 
     private readonly ujianService: UjianService,
+    @Inject(REQUEST) private req: any,
   ) {}
 
   async createOne(data: any, userId: number): Promise<any> {
@@ -25,6 +27,8 @@ export class BankSoalService {
 
     const save = await this.bankSoalRepo.save({
       ...data,
+      nama_guru: this.req.user.name,
+
       mapel: {
         id: data.mapel_id,
       },

@@ -7,7 +7,7 @@ import {
   IsBoolean,
   IsArray,
   IsUUID,
-} from "class-validator";
+} from 'class-validator';
 
 export class CreateUjianDto {
   @IsNotEmpty()
@@ -41,12 +41,23 @@ export class CreateUjianDto {
   @IsBoolean()
   is_published?: boolean;
 
-//   @IsNotEmpty()
-//   @IsInt()
-//   mapelId: number;
+  //   @IsNotEmpty()
+  //   @IsInt()
+  //   mapelId: number;
 
- @IsArray()
-  @IsUUID("all", { each: true })
+  @IsArray()
+  @IsUUID('all', { each: true })
   @IsOptional()
   soal?: string[];
+}
+
+export class UpdateUjianDto extends CreateUjianDto {
+  @IsNotEmpty()
+  id: string;
+
+  
+
+ @IsOptional()
+  @IsBoolean()
+  is_open: boolean;
 }

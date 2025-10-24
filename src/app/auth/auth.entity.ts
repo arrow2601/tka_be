@@ -6,6 +6,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Ujian } from '../ujian/ujian.entity';
+import { Nilai } from '../nilai/nilai.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -29,8 +30,7 @@ export class User extends BaseEntity {
 
   @Column({ nullable: true })
   role: string;
-  @OneToMany(() => Ujian, (ujian) => ujian.user)
-  ujians: Ujian[];
+  
 
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;

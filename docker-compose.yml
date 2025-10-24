@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+
+
+  redis:
+    image : redis:latest
+    container_name: redis
+    # command : redis-server /usr/local/etc/redis/redis.conf
+    restart:  always
+    volumes:
+      - ./config/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - 6379:6379
+
+
+networks:
+  arc_network:
+    external: true

@@ -2,10 +2,13 @@ import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginGoogleDto } from './auth.dto';
 import { JwtGuard } from './auth.guard';
+import { Throttle } from '@nestjs/throttler';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
+
+  @Throttle({ default: { limit: 2, ttl: 60000 } })
   @Post('login')
   login(@Body() payload: LoginGoogleDto) {
     return this.authService.loginGoogle(payload);

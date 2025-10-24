@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { LoginGoogleDto } from './auth.dto';
 import BaseResponse, { ResponseSuccess } from 'src/utils/response';
 import { JwtService } from '@nestjs/jwt';
-import { jwt_config } from 'src/config/jwt.config';
 
 interface jwtPayload {
   id: number;
