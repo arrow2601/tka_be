@@ -23,8 +23,8 @@ async function bootstrap() {
     }),
   ); //implementasi
 
-  app.connectMicroservice<MicroserviceOptions>(redisConfig);
-  app.startAllMicroservices();
+  // app.connectMicroservice<MicroserviceOptions>(redisConfig);
+  // app.startAllMicroservices();
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
   await app.listen(process.env.PORT ?? 3000);
 }

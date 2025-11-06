@@ -7,6 +7,8 @@ import {
 } from 'typeorm';
 import { Ujian } from '../ujian/ujian.entity';
 import { Nilai } from '../nilai/nilai.entity';
+import { ProgressMapel } from '../mapel_progress/mapel_progress.entity';
+import { Gamifikasi } from '../gamifikasi/gamifikasi.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -30,7 +32,11 @@ export class User extends BaseEntity {
 
   @Column({ nullable: true })
   role: string;
-  
+
+  @OneToMany(() => ProgressMapel, (ump) => ump.user)
+  progressMapel: ProgressMapel[];
+  @OneToMany(() => Gamifikasi, (g) => g.user)
+  gamifikasi: Gamifikasi[];
 
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;

@@ -259,9 +259,8 @@ export class NilaiService {
         });
         return {
           status: 'Success',
-          message : ujianResponse. message,
+          message: ujianResponse.message,
           data: {
-
             soal: this.filterSoal(ujianData),
             ujian: nilaiEntry,
             nama_ujian: ujianData.nama_ujian,
@@ -284,7 +283,7 @@ export class NilaiService {
 
       return {
         status: 'Success',
-         message : ujianResponse. message,
+        message: ujianResponse.message,
         data: {
           id: existingNilai.id,
           soal: this.filterSoal(ujianData),
@@ -300,12 +299,17 @@ export class NilaiService {
       };
     }
 
+
+  console.log("ujian", ujianData)
+
     // 3. Buat Entri Nilai Baru (jika belum pernah mengambil)
     const newNilai = this.nilaiRepository.create({
       ujian_id,
       user_id,
       waktu_mulai: new Date(),
       status_pengerjaan: 'ONGOING',
+      nama_ujian: ujianData.nama_ujian,
+      nama_mapel: ujianData.nama_mapel,
 
       // Inisialisasi sisa_waktu dengan durasi total dalam detik
       sisa_waktu: durasiTotalMenit * 60,
@@ -319,7 +323,7 @@ export class NilaiService {
 
     return {
       status: 'Success',
-       message : ujianResponse. message,
+      message: ujianResponse.message,
       data: {
         id: nilaiEntry.id,
         soal: this.filterSoal(ujianData),
@@ -354,5 +358,21 @@ export class NilaiService {
     });
 
     return filteredSoal;
+  }
+
+  async getNilaiSiswa(): Promise<ResponseSuccess> {
+    const res = await this.nilaiRepository
+      .createQueryBuilder('nilai')
+      .where('nilai.user_id = :userId', { userId: this.req.user.id })
+      .andWhere('nilai.status_pengerjaan = :status', { status: 'SUBMITTED' })
+
+      .select()
+      .orderBy('nilai.waktu_selesai', 'DESC')
+      .getMany();
+
+    return {
+      status: 'Success',
+      data: res,
+    };
   }
 }

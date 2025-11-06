@@ -50,9 +50,18 @@ export class NilaiController {
     @Body('nilai_id') nilai_id: string,
     @Body('jawaban') jawaban: any,
   ) {
+    return this.nilaiService.saveSubmit(
+      ujian_id,
+      nilai_id,
+      jawaban,
+      history_nilai,
+    );
+  }
 
-   
-    return this.nilaiService.saveSubmit(ujian_id, nilai_id, jawaban,history_nilai);
+  @Get('exam/done')
+  @UseGuards(JwtGuard)
+  async getNilaiSiswa() {
+    return this.nilaiService.getNilaiSiswa();
   }
 
   // ... metode lain

@@ -7,7 +7,7 @@ import { BankSoal } from '../bank-soal/bank-soal.entity';
 import { CreateUjianDto, UpdateUjianDto } from './create-ujian.dto';
 import { User } from '../auth/auth.entity';
 import { REQUEST } from '@nestjs/core';
-import { RedisService } from 'src/redis/redis.service';
+// import { RedisService } from 'src/redis/redis.service';
 
 @Injectable()
 export class UjianService {
@@ -17,7 +17,7 @@ export class UjianService {
 
     @InjectRepository(BankSoal)
     private bankSoalRepository: Repository<BankSoal>,
-    private readonly redisService: RedisService,
+    // private readonly redisService: RedisService,
     @Inject(REQUEST) private req: any,
   ) {}
 
@@ -59,7 +59,7 @@ export class UjianService {
       );
     }
 
-    await this.redisService.del(`ujian_${dto.id}`);
+    // await this.redisService.del(`ujian_${dto.id}`);
 
     return {
       status: 'Success',
@@ -79,7 +79,7 @@ export class UjianService {
       { soal: JSON.stringify(soal) }, // data yang akan diupdate
     );
 
-    await this.redisService.del(`ujian_${id}`);
+    // await this.redisService.del(`ujian_${id}`);
 
     return soals;
   }
@@ -92,7 +92,7 @@ export class UjianService {
       { soal: JSON.stringify(soal) }, // data yang akan diupdate
     );
 
-     await this.redisService.del(`ujian_${id}`);
+    //  await this.redisService.del(`ujian_${id}`);
 
 
     return { message: 'Daftar soal ujian berhasil diperbarui' };
@@ -250,23 +250,12 @@ export class UjianService {
   }
 
   async findOnePublic(id: string): Promise<any> {
-    const cachedData = await this.redisService.get(`ujian_${id}`);
 
-    console.log("ca", cachedData)
-
-    if (cachedData) {
-      console.log('from redis');
-      return {
-        status: 'Success',
-        data: cachedData,
-        message: 'redis',
-      };
-    }
     // Ambil data ujian berdasarkan id
     const ujian = await this.ujianRepository.findOne({
       where: { id },
     });
-    console.log('from db');
+    
 
     if (!ujian) {
       throw new NotFoundException(`Ujian dengan ID ${id} tidak ditemukan`);
@@ -287,14 +276,14 @@ export class UjianService {
         })
       : [];
 
-    await this.redisService.set(
-      `ujian_${id}`,
-      {
-        ...ujian,
-        soal: soals,
-      },
-      6000,
-    );
+    // await this.redisService.set(
+    //   `ujian_${id}`,
+    //   {
+    //     ...ujian,
+    //     soal: soals,
+    //   },
+    //   6000,
+    // );
 
     // Gabungkan hasil ujian dan daftar soal
     return {

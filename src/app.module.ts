@@ -11,6 +11,8 @@ import { MapelModule } from './app/mapel/mapel.module';
 import { MateriModule } from './app/materi/materi.module';
 import { RedisModule } from './redis/redis.module';
 import { AppService } from './app.service';
+import { MapelProgressModule } from './app/mapel_progress/mapel_progress.module';
+import { GamifikasiModule } from './app/gamifikasi/gamifikasi.module';
 
 @Module({
   imports: [
@@ -36,6 +38,8 @@ import { AppService } from './app.service';
     MapelModule,
     MateriModule,
     RedisModule,
+    MapelProgressModule,
+    GamifikasiModule,
   ],
   controllers: [],
   providers: [

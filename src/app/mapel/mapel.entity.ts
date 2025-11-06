@@ -9,6 +9,8 @@ import {
 } from 'typeorm';
 import { BankSoal } from '../bank-soal/bank-soal.entity';
 import { Ujian } from '../ujian/ujian.entity';
+import { ProgressMapel } from '../mapel_progress/mapel_progress.entity';
+
 
 @Entity('mapel')
 export class Mapel extends BaseEntity {
@@ -23,8 +25,11 @@ export class Mapel extends BaseEntity {
 
   @OneToMany(() => BankSoal, (bankSoal) => bankSoal.mapel)
   bankSoal: BankSoal[];
-//   @OneToMany(() => Ujian, (ujian) => ujian.mapel)
-//   ujians: Ujian[];
+  //   @OneToMany(() => Ujian, (ujian) => ujian.mapel)
+  //   ujians: Ujian[];
+
+  @OneToMany(() => ProgressMapel, (ump) => ump.mapel)
+  progressMapel: ProgressMapel[];
 
   @CreateDateColumn({ type: 'datetime' })
   created_at: Date;

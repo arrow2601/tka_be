@@ -20,7 +20,12 @@ export class Nilai {
   ujian_id: string; // Kolom untuk menyimpan ID Ujian secara langsung (opsional, tergantung preferensi)
 
   // Relasi ke Entitas User (Pengambil Ujian)
- 
+
+  @Column({ nullable: true })
+  nama_mapel: string;
+
+  @Column({ nullable: true })
+  nama_ujian: string;
 
   @Column({ nullable: false })
   user_id: string; // Kolom untuk menyimpan ID User secara langsung
@@ -48,7 +53,7 @@ export class Nilai {
   @Column({ type: 'decimal', precision: 5, scale: 2, nullable: true })
   nilai: number; // Nilai akhir yang didapat (misalnya, 85.50)
 
-  @Column({nullable : true})
+  @Column({ nullable: true })
   history_nilai: string; // Nilai akhir yang didapat (misalnya, 85.50)
 
   // --- Status Ujian ---
